@@ -27,9 +27,23 @@ body, html {
 }
 </style>
 <body>
-    <video autoplay muted loop id="bg-video">
-        <source src="video.mp4" type="video/mp4">
+    <video autoplay muted loop playsinline id="bg-video">
+        <source src="tu-video.mp4" type="video/mp4">
         Tu navegador no soporta el elemento de video.
     </video>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var video = document.getElementById('bg-video');
+            // Para asegurar la reproducción automática en dispositivos móviles
+            function enableAutoplay() {
+                video.play();
+                document.removeEventListener('click', enableAutoplay);
+            }
+            video.play().catch(function() {
+                // Si la reproducción automática falla, esperar a que el usuario toque la pantalla
+                document.addEventListener('click', enableAutoplay);
+            });
+        });
+    </script>
 </body>
 </html>
